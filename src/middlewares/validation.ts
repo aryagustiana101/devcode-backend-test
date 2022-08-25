@@ -57,6 +57,17 @@ const validations: Validation[] = [
         .isLength({ max: 255 })
         .withMessage('Email must be less than 255 characters')
     ]
+  },
+  {
+    originalUrl: '/activity-groups/:id',
+    method: 'DELETE',
+    rules: [
+      param('id')
+        .notEmpty()
+        .withMessage('Id is required')
+        .isNumeric()
+        .withMessage('Id must be a number')
+    ]
   }
 ]
 
