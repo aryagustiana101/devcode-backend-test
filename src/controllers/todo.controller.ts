@@ -21,7 +21,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
     return res.status(200).json({
       status: 'Success',
       message: 'Success',
-      data: 'activity.todoList'
+      data: activity.todoList
     })
   }
 
@@ -55,10 +55,35 @@ export const getOne = async (req: Request, res: Response): Promise<Response> => 
 }
 
 export const create = async (req: Request, res: Response): Promise<Response> => {
+  const activityGroupId = Number(req.body.activity_group_id)
+  const isActive = Boolean(req.body.is_active === 'true' ?? true)
+  const { title, priority } = req.body
+
+  const activity = await prisma.activity.findFirst({
+    where: { id: Number(activityGroupId), deleted_at: null }
+  })
+
+  if (activity === null) {
+    return res.status(404).json({
+      status: 'Not Found',
+      message: `Activity with ID ${activityGroupId} Not Found`,
+      data: {}
+    })
+  }
+
+  const todo = await prisma.todo.create({
+    data: {
+      title,
+      priority,
+      is_active: isActive,
+      activity: { connect: { id: activity.id } }
+    }
+  })
+
   return res.status(200).json({
     status: 'Success',
     message: 'Success',
-    data: {}
+    data: todo
   })
 }
 

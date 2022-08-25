@@ -24,7 +24,7 @@ model Todo {
   id                Int       @id @default(autoincrement())
   activity_group_id Int
   title             String    @db.VarChar(255)
-  is_active         Boolean   @default(false)
+  is_active         Boolean   @default(true)
   priority          String    @default("very-high")
   created_at        DateTime  @default(now())
   updated_at        DateTime  @updatedAt

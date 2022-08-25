@@ -7,7 +7,7 @@ interface Validation {
   rules: ValidationChain[]
 }
 
-const validations = [
+const validations: Validation[] = [
   {
     originalUrl: '/activity-groups/:id',
     method: 'GET',
@@ -60,6 +60,10 @@ const validations = [
         .withMessage('Title is required')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
+      body('is_active')
+        .optional({ checkFalsy: true })
+        .isBoolean()
+        .withMessage('Is active must be a boolean'),
       body('priority')
         .optional({ checkFalsy: true })
         .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
