@@ -11,10 +11,10 @@ datasource db {
 }
 
 model Activity {
-  id        Int       @id @default(autoincrement())
-  title     String
-  email     String?
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+  id         Int       @id @default(autoincrement())
+  title      String
+  email      String?
+  created_at DateTime  @default(now()) @map("created_at")
+  updated_at DateTime  @updatedAt @map("updated_at")
+  deleted_at DateTime? @map("deleted_at")
 }

@@ -1,9 +1,9 @@
 import cors from 'cors'
 import logger from 'morgan'
-import indexRouter from './src/routes'
 import cookieParser from 'cookie-parser'
 import express, { Express } from 'express'
-import { errorHandler, notFoundHandler } from './src/middleware/error'
+import indexRouter from './src/routes/index.routes'
+import { errorHandler, notFoundHandler } from './src/middleware/error.middleware'
 
 const app: Express = express()
 
