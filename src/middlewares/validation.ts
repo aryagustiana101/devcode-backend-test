@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { ValidationChain, body, param, validationResult } from 'express-validator'
+import { ValidationChain, body, param, query, validationResult } from 'express-validator'
 
 interface Validation {
   originalUrl: string
@@ -7,7 +7,7 @@ interface Validation {
   rules: ValidationChain[]
 }
 
-const validations: Validation[] = [
+const validations = [
   {
     originalUrl: '/activity-groups/:id',
     method: 'GET',
@@ -17,6 +17,16 @@ const validations: Validation[] = [
         .withMessage('Id is required')
         .isNumeric()
         .withMessage('Id must be a number')
+    ]
+  },
+  {
+    originalUrl: '/todo-items',
+    method: 'GET',
+    rules: [
+      query('activity_group_id')
+        .optional({ checkFalsy: true })
+        .isNumeric()
+        .withMessage('Activity group id must be a number')
     ]
   },
   {
@@ -34,6 +44,28 @@ const validations: Validation[] = [
         .withMessage('Email is invalid')
         .isLength({ max: 255 })
         .withMessage('Email must be less than 255 characters')
+    ]
+  },
+  {
+    originalUrl: '/todo-items',
+    method: 'POST',
+    rules: [
+      body('activity_group_id')
+        .notEmpty()
+        .withMessage('Activity group id is required')
+        .isNumeric()
+        .withMessage('Activity group id must be a number'),
+      body('title')
+        .notEmpty()
+        .withMessage('Title is required')
+        .isLength({ max: 255 })
+        .withMessage('Title must be less than 255 characters'),
+      body('priority')
+        .optional({ checkFalsy: true })
+        .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
+        .withMessage('Priority must be one of very-high, high, medium, low, very-low')
+        .isLength({ max: 255 })
+        .withMessage('Priority must be less than 255 characters')
     ]
   },
   {

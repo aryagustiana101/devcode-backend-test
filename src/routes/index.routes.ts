@@ -1,4 +1,5 @@
 import activity from './activity.routes'
+import todo from './todo.routes'
 import express, { Request, Response, Router } from 'express'
 
 const router: Router = express.Router()
@@ -10,5 +11,6 @@ router.route('/').get((req: Request, res: Response): Response => {
 })
 
 router.use('/activity-groups', activity)
+router.use('/todo-items', todo)
 
 export default router

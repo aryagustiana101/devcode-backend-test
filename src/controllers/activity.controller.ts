@@ -19,7 +19,7 @@ export const getOne = async (req: Request, res: Response): Promise<Response> => 
   if (activity === null) {
     return res.status(404).json({
       status: 'Not Found',
-      message: `Activity with ID ${req.params.id} Not Found`,
+      message: `Activity with ID ${id} Not Found`,
       data: {}
     })
   }
@@ -85,7 +85,7 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
   }
 
   await prisma.activity.delete({ where: { id } })
-  await prisma.todo.deleteMany({ where: { activity: { id } } })
+  await prisma.todo.deleteMany({ where: { activity_group_id: id } })
 
   return res.status(200).json({
     status: 'Success',
