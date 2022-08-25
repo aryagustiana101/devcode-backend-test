@@ -10,18 +10,10 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
       include: { todoList: true }
     })
 
-    if (activity === null) {
-      return res.status(404).json({
-        status: 'Not Found',
-        message: `Activity with ID ${req.params.id} Not Found`,
-        data: []
-      })
-    }
-
     return res.status(200).json({
       status: 'Success',
       message: 'Success',
-      data: activity.todoList
+      data: activity?.todoList ?? []
     })
   }
 
@@ -119,6 +111,20 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 }
 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
+  const id = Number(req.params.id)
+
+  const todo = await prisma.todo.findFirst({ where: { id, deleted_at: null } })
+
+  if (todo === null) {
+    return res.status(404).json({
+      status: 'Not Found',
+      message: `Todo with ID ${req.params.id} Not Found`,
+      data: {}
+    })
+  }
+
+  await prisma.todo.delete({ where: { id: todo.id } })
+
   return res.status(200).json({
     status: 'Success',
     message: 'Success',
