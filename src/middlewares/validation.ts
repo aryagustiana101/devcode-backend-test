@@ -22,7 +22,11 @@ const validations: Validation[] = [
         .withMessage('Title is required')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
-      body('email').isEmail().withMessage('Email is invalid')
+      body('email')
+        .isEmail()
+        .withMessage('Email is invalid')
+        .isLength({ max: 255 })
+        .withMessage('Email must be less than 255 characters')
     ]
   }
 ]
