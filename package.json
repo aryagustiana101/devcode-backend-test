@@ -14,7 +14,7 @@
     "lint:fix": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "migrate": "prisma migrate deploy && node dist/prisma/seed.js"
+    "migrate": "sleep 15 && prisma migrate deploy && node dist/prisma/seed.js"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
