@@ -3,7 +3,7 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import express, { Express } from 'express'
 import indexRouter from './src/routes/index.routes'
-import { errorHandler, notFoundHandler } from './src/middleware/error.middleware'
+import { errorHandler, notFoundHandler } from './src/middlewares/error'
 
 const app: Express = express()
 

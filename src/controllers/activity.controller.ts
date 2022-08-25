@@ -1,4 +1,4 @@
-import prisma from '../libs/prisma.libs'
+import prisma from '../libs/prisma'
 import { Request, Response } from 'express'
 
 export const getAll = async (req: Request, res: Response): Promise<Response> => {
@@ -10,10 +10,24 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 }
 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
+  const activity = await prisma.activity.findUnique({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+
+  if (activity === null) {
+    return res.status(404).json({
+      status: 'Not Found',
+      message: `Activity with ID ${req.params.id} Not Found`,
+      data: {}
+    })
+  }
+
   return res.status(200).json({
     status: 'Success',
     message: 'Success',
-    data: await prisma.activity.findMany()
+    data: activity
   })
 }
 

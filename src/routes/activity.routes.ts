@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import { asyncWrapper } from '../utils/wrapper.utils'
-import { validate } from '../middleware/validation.middleware'
+import { asyncWrapper } from '../utils/wrapper'
+import { validate } from '../middlewares/validation'
 import { create, getAll, getOne, remove, update } from '../controllers/activity.controller'
 
 const router: Router = express.Router()
