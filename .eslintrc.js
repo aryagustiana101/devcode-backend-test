@@ -1,46 +1,25 @@
 module.exports = {
-  'env': {
-    'node': true,
-    'browser': true,
-    'es2021': true
+  env: {
+    browser: true,
+    es2021: true
   },
-  'extends': [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
-  ],
-  'overrides': [
-  ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module'
+  extends: ['standard-with-typescript', 'prettier'],
+  overrides: [],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['tsconfig.json']
   },
-  'plugins': [
-    '@typescript-eslint'
-  ],
-  'rules': {
-    'indent': [
+  rules: {
+    'sort-imports': [
       'error',
-      2
-    ],
-    'linebreak-style': [
-      'error',
-      'windows'
-    ],
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'semi': [
-      'error',
-      'never'
-    ],
-    'sort-imports': ['error', {
-      'ignoreCase': false,
-      'ignoreDeclarationSort': true,
-      'ignoreMemberSort': false,
-      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
-      'allowSeparatedGroups': false
-    }]
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        allowSeparatedGroups: false
+      }
+    ]
   }
 }

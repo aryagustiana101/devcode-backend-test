@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "start": "node dist/bin/www.js",
     "dev": "nodemon bin/www.ts",
-    "watch": "concurrently \"npx tsc --watch\" \"nodemon -q dist/bin/www.js\"",
-    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts ."
+    "watch": "concurrently \"tsc --watch\" \"nodemon -q dist/bin/www.js\"",
+    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+    "lint:fix": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@prisma/client": "^4.2.1",
@@ -26,15 +29,18 @@
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.13",
-    "@typescript-eslint/eslint-plugin": "5.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.34.0",
     "concurrently": "^7.3.0",
     "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^22.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
     "prisma": "^4.2.1",
     "ts-node": "^10.9.1",
     "typescript": "*"
