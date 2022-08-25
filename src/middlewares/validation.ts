@@ -17,7 +17,7 @@ const validations: Validation[] = [
     originalUrl: '/activity-groups',
     method: 'POST',
     rules: [
-      body('title').notEmpty().withMessage('Title is required'),
+      body('title').notEmpty().withMessage('Title is required').isLength({ max: 255 }),
       body('email').isEmail().withMessage('Email is invalid')
     ]
   }

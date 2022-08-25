@@ -11,9 +11,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
   const activity = await prisma.activity.findUnique({
-    where: {
-      id: parseInt(req.params.id)
-    }
+    where: { id: parseInt(req.params.id) }
   })
 
   if (activity === null) {
@@ -32,10 +30,16 @@ export const getOne = async (req: Request, res: Response): Promise<Response> => 
 }
 
 export const create = async (req: Request, res: Response): Promise<Response> => {
+  const { title, email } = req.body
+
+  const activity = await prisma.activity.create({
+    data: { title, email }
+  })
+
   return res.status(200).json({
     status: 'Success',
     message: 'Success',
-    data: await prisma.activity.findMany()
+    data: activity
   })
 }
 
