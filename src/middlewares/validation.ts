@@ -11,13 +11,7 @@ const validations: Validation[] = [
   {
     originalUrl: '/activity-groups/:id',
     method: 'GET',
-    rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number')
-    ]
+    rules: [param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number')]
   },
   {
     originalUrl: '/todo-items',
@@ -60,10 +54,7 @@ const validations: Validation[] = [
         .withMessage('Title is required')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
-      body('is_active')
-        .optional({ checkFalsy: true })
-        .isBoolean()
-        .withMessage('Is active must be a boolean'),
+      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
       body('priority')
         .optional({ checkFalsy: true })
         .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
@@ -76,11 +67,7 @@ const validations: Validation[] = [
     originalUrl: '/activity-groups/:id',
     method: 'PATCH',
     rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number'),
+      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
       body('title')
         .notEmpty()
         .withMessage('Title is required')
@@ -98,11 +85,7 @@ const validations: Validation[] = [
     originalUrl: '/activity-groups/:id',
     method: 'PUT',
     rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number'),
+      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
       body('title')
         .notEmpty()
         .withMessage('Title is required')
@@ -120,20 +103,13 @@ const validations: Validation[] = [
     originalUrl: '/todo-items/:id',
     method: 'PATCH',
     rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number'),
+      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
       body('title')
         .notEmpty()
         .withMessage('Title is required')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
-      body('is_active')
-        .optional({ checkFalsy: true })
-        .isBoolean()
-        .withMessage('Is active must be a boolean'),
+      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
       body('priority')
         .optional({ checkFalsy: true })
         .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
@@ -146,20 +122,13 @@ const validations: Validation[] = [
     originalUrl: '/todo-items/:id',
     method: 'PATCH',
     rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number'),
+      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
       body('title')
         .notEmpty()
         .withMessage('Title is required')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
-      body('is_active')
-        .optional({ checkFalsy: true })
-        .isBoolean()
-        .withMessage('Is active must be a boolean'),
+      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
       body('priority')
         .optional({ checkFalsy: true })
         .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
@@ -171,32 +140,16 @@ const validations: Validation[] = [
   {
     originalUrl: '/activity-groups/:id',
     method: 'DELETE',
-    rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number')
-    ]
+    rules: [param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number')]
   },
   {
     originalUrl: '/todo-items/:id',
     method: 'DELETE',
-    rules: [
-      param('id')
-        .notEmpty()
-        .withMessage('Id is required')
-        .isNumeric()
-        .withMessage('Id must be a number')
-    ]
+    rules: [param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number')]
   }
 ]
 
-export const validate = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<Response | unknown> => {
+export const validate = async (req: Request, res: Response, next: NextFunction): Promise<Response | unknown> => {
   const { originalUrl, method } = req
 
   const validation = validations.find((item) => {
