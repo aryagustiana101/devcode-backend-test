@@ -60,7 +60,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
   }
 
   const updateActivity = await prisma.activity.update({
-    where: { id },
+    where: { id: activity.id },
     data: { title, email: email ?? activity.email }
   })
 
@@ -84,8 +84,8 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
     })
   }
 
-  await prisma.activity.delete({ where: { id } })
-  await prisma.todo.deleteMany({ where: { activity_group_id: id } })
+  await prisma.activity.delete({ where: { id: activity.id } })
+  await prisma.todo.deleteMany({ where: { activity_group_id: activity.id } })
 
   return res.status(200).json({
     status: 'Success',
