@@ -1,11 +1,24 @@
-import { PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
+
+const mysqlHost = process.env.MYSQL_HOST ?? '127.0.0.1'
+const mysqlPort = process.env.MYSQL_PORT ?? '3306'
+const mysqlUser = process.env.MYSQL_USER ?? 'root'
+const mysqlPassword = process.env.MYSQL_PASSWORD ?? ''
+const mysqlDbName = process.env.MYSQL_DBNAME ?? 'devcode_backend_test'
 
 const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error']
+  log: ['query', 'info', 'warn', 'error'],
+  datasources: {
+    db: {
+      url: `mysql://${mysqlUser}:${mysqlPassword}@${mysqlHost}:${mysqlPort}/${mysqlDbName}`
+    }
+  }
 })
 
 // Prisma Soft Delete Middleware
-prisma.$use(async (params, next) => {
+type nextPrisma = (params: Prisma.MiddlewareParams) => Promise<any>
+
+prisma.$use(async (params: Prisma.MiddlewareParams, next: nextPrisma) => {
   if (params.model === 'Activity') {
     if (params.action === 'delete') {
       params.action = 'update'

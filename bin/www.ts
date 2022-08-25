@@ -3,14 +3,6 @@ import http from 'http'
 import app from '../app'
 import debugLib from 'debug'
 
-const mysqlHost = process.env.MYSQL_HOST ?? '127.0.0.1'
-const mysqlPort = process.env.MYSQL_PORT ?? '3306'
-const mysqlUser = process.env.MYSQL_USER ?? 'root'
-const mysqlPassword = process.env.MYSQL_PASSWORD ?? ''
-const mysqlDbName = process.env.MYSQL_DBNAME ?? 'devcode_backend_test'
-
-process.env.DATABASE_URL = `mysql://${mysqlUser}:${mysqlPassword}@${mysqlHost}:${mysqlPort}/${mysqlDbName}`
-
 const debug = debugLib('devcode-backend-test:server')
 
 const port = normalizePort(process.env.PORT ?? '3030')
