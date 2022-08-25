@@ -11,7 +11,13 @@ const validations: Validation[] = [
   {
     originalUrl: '/activity-groups/:id',
     method: 'GET',
-    rules: [param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number')]
+    rules: [
+      param('id')
+        .notEmpty()
+        .withMessage('Id is required')
+        .isNumeric()
+        .withMessage('Id must be a number')
+    ]
   },
   {
     originalUrl: '/activity-groups',
@@ -23,6 +29,29 @@ const validations: Validation[] = [
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
       body('email')
+        .optional({ checkFalsy: true })
+        .isEmail()
+        .withMessage('Email is invalid')
+        .isLength({ max: 255 })
+        .withMessage('Email must be less than 255 characters')
+    ]
+  },
+  {
+    originalUrl: '/activity-groups/:id',
+    method: 'PATCH',
+    rules: [
+      param('id')
+        .notEmpty()
+        .withMessage('Id is required')
+        .isNumeric()
+        .withMessage('Id must be a number'),
+      body('title')
+        .notEmpty()
+        .withMessage('Title is required')
+        .isLength({ max: 255 })
+        .withMessage('Title must be less than 255 characters'),
+      body('email')
+        .optional({ checkFalsy: true })
         .isEmail()
         .withMessage('Email is invalid')
         .isLength({ max: 255 })
@@ -31,7 +60,11 @@ const validations: Validation[] = [
   }
 ]
 
-export const validate = async (req: Request, res: Response, next: NextFunction): Promise<Response | unknown> => {
+export const validate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response | unknown> => {
   const { originalUrl, method } = req
 
   const validation = validations.find((item) => {

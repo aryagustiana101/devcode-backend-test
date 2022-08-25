@@ -2,7 +2,7 @@
 CREATE TABLE `Activity` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) NULL,
+    `email` VARCHAR(255) NOT NULL DEFAULT '',
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
     `deleted_at` DATETIME(3) NULL,
