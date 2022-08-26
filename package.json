@@ -14,7 +14,7 @@
     "lint:fix": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "migrate": "sleep 15 && prisma migrate deploy && node dist/prisma/seed.js"
+    "migrate": "prisma migrate deploy"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -27,10 +27,10 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
-    "morgan": "^1.10.0",
-    "@faker-js/faker": "^7.4.0"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.4.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.12",
     "@types/debug": "^4.1.7",

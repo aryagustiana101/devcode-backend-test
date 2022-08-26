@@ -29,7 +29,7 @@ const validations: Validation[] = [
     rules: [
       body('title')
         .notEmpty()
-        .withMessage('Title is required')
+        .withMessage('title cannot be null')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
       body('email')
@@ -46,21 +46,21 @@ const validations: Validation[] = [
     rules: [
       body('activity_group_id')
         .notEmpty()
-        .withMessage('Activity group id is required')
+        .withMessage('activity_group_id cannot be null')
         .isNumeric()
         .withMessage('Activity group id must be a number'),
       body('title')
         .notEmpty()
-        .withMessage('Title is required')
+        .withMessage('title cannot be null')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
-      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
-      body('priority')
-        .optional({ checkFalsy: true })
-        .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
-        .withMessage('Priority must be one of very-high, high, medium, low, very-low')
-        .isLength({ max: 255 })
-        .withMessage('Priority must be less than 255 characters')
+      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean')
+      // body('priority')
+      //   .optional({ checkFalsy: true })
+      //   .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
+      //   .withMessage('Priority must be one of very-high, high, medium, low, very-low')
+      //   .isLength({ max: 255 })
+      //   .withMessage('Priority must be less than 255 characters')
     ]
   },
   {
@@ -70,25 +70,7 @@ const validations: Validation[] = [
       param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
       body('title')
         .notEmpty()
-        .withMessage('Title is required')
-        .isLength({ max: 255 })
-        .withMessage('Title must be less than 255 characters'),
-      body('email')
-        .optional({ checkFalsy: true })
-        .isEmail()
-        .withMessage('Email is invalid')
-        .isLength({ max: 255 })
-        .withMessage('Email must be less than 255 characters')
-    ]
-  },
-  {
-    originalUrl: '/activity-groups/:id',
-    method: 'PUT',
-    rules: [
-      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
-      body('title')
-        .notEmpty()
-        .withMessage('Title is required')
+        .withMessage('title cannot be null')
         .isLength({ max: 255 })
         .withMessage('Title must be less than 255 characters'),
       body('email')
@@ -103,38 +85,17 @@ const validations: Validation[] = [
     originalUrl: '/todo-items/:id',
     method: 'PATCH',
     rules: [
-      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
-      body('title')
-        .notEmpty()
-        .withMessage('Title is required')
-        .isLength({ max: 255 })
-        .withMessage('Title must be less than 255 characters'),
-      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
-      body('priority')
-        .optional({ checkFalsy: true })
-        .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
-        .withMessage('Priority must be one of very-high, high, medium, low, very-low')
-        .isLength({ max: 255 })
-        .withMessage('Priority must be less than 255 characters')
-    ]
-  },
-  {
-    originalUrl: '/todo-items/:id',
-    method: 'PATCH',
-    rules: [
-      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number'),
-      body('title')
-        .notEmpty()
-        .withMessage('Title is required')
-        .isLength({ max: 255 })
-        .withMessage('Title must be less than 255 characters'),
-      body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
-      body('priority')
-        .optional({ checkFalsy: true })
-        .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
-        .withMessage('Priority must be one of very-high, high, medium, low, very-low')
-        .isLength({ max: 255 })
-        .withMessage('Priority must be less than 255 characters')
+      param('id').notEmpty().withMessage('Id is required').isNumeric().withMessage('Id must be a number')
+      // body('title').notEmpty().withMessage('title cannot be null')
+      // .isLength({ max: 255 })
+      // .withMessage('Title must be less than 255 characters')
+      // body('is_active').optional({ checkFalsy: true }).isBoolean().withMessage('Is active must be a boolean'),
+      // body('priority')
+      //   .optional({ checkFalsy: true })
+      //   .isIn(['very-high', 'high', 'medium', 'low', 'very-low'])
+      //   .withMessage('Priority must be one of very-high, high, medium, low, very-low')
+      //   .isLength({ max: 255 })
+      //   .withMessage('Priority must be less than 255 characters')
     ]
   },
   {

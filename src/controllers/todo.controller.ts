@@ -6,7 +6,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 
   if (!isNaN(activityGroupId)) {
     const activity = await prisma.activity.findFirst({
-      where: { id: activityGroupId, deleted_at: null },
+      where: { id: activityGroupId },
       include: { todoList: true }
     })
 
@@ -17,19 +17,17 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
     })
   }
 
-  const todoList = await prisma.todo.findMany({ where: { deleted_at: null } })
-
   return res.status(200).json({
     status: 'Success',
     message: 'Success',
-    data: todoList
+    data: await prisma.todo.findMany()
   })
 }
 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
-  const todo = await prisma.todo.findFirst({ where: { id, deleted_at: null } })
+  const todo = await prisma.todo.findFirst({ where: { id } })
 
   if (todo === null) {
     return res.status(404).json({
@@ -49,10 +47,10 @@ export const getOne = async (req: Request, res: Response): Promise<Response> => 
 export const create = async (req: Request, res: Response): Promise<Response> => {
   const { title, priority } = req.body
   const activityGroupId = Number(req.body.activity_group_id)
-  const isActive = Boolean(req.body.is_active === 'true' ?? true)
+  const isActive = true
 
   const activity = await prisma.activity.findFirst({
-    where: { id: Number(activityGroupId), deleted_at: null }
+    where: { id: Number(activityGroupId) }
   })
 
   if (activity === null) {
@@ -72,7 +70,7 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
     }
   })
 
-  return res.status(200).json({
+  return res.status(201).json({
     status: 'Success',
     message: 'Success',
     data: todo
@@ -84,7 +82,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
   const { title, priority } = req.body
   const isActive = Boolean(req.body.is_active === 'true' ?? true)
 
-  const todo = await prisma.todo.findFirst({ where: { id, deleted_at: null } })
+  const todo = await prisma.todo.findFirst({ where: { id } })
 
   if (todo === null) {
     return res.status(404).json({
@@ -97,7 +95,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
   const updatedTodo = await prisma.todo.update({
     where: { id: todo.id },
     data: {
-      title,
+      title: title ?? todo.title,
       is_active: isActive ?? todo.is_active,
       priority: priority ?? todo.priority
     }
@@ -113,7 +111,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
-  const todo = await prisma.todo.findFirst({ where: { id, deleted_at: null } })
+  const todo = await prisma.todo.findFirst({ where: { id } })
 
   if (todo === null) {
     return res.status(404).json({

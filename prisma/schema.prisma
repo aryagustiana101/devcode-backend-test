@@ -18,6 +18,8 @@ model Activity {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
   todoList   Todo[]
+
+  @@map("activities")
 }
 
 model Todo {
@@ -29,5 +31,7 @@ model Todo {
   created_at        DateTime  @default(now())
   updated_at        DateTime  @updatedAt
   deleted_at        DateTime?
-  activity          Activity  @relation(fields: [activity_group_id], references: [id])
+  activity          Activity  @relation(fields: [activity_group_id], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  @@map("todos")
 }
