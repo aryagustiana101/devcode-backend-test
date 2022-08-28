@@ -138,13 +138,13 @@ export const validate = async (req: Request, res: Response, next: NextFunction):
 
   const errors = validationResult(req)
 
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      status: 'Bad Request',
-      message: errors.array().map((err) => err.msg)[0],
-      data: {}
-    })
+  if (errors.isEmpty()) {
+    return next()
   }
 
-  return next()
+  return res.status(400).json({
+    status: 'Bad Request',
+    message: errors.array().map((err) => err.msg)[0],
+    data: {}
+  })
 }

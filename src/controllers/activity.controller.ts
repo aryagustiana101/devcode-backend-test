@@ -83,7 +83,6 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
   }
 
   await prisma.activity.delete({ where: { id: activity.id } })
-  // await prisma.todo.deleteMany({ where: { activity_group_id: activity.id } })
 
   return res.status(200).json({
     status: 'Success',

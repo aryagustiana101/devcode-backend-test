@@ -11,6 +11,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 
 export const notFoundHandler = (req: Request, res: Response, next: NextFunction): Response => {
   return res.status(404).json({
-    message: 'Not Found'
+    status: 'Bad Request',
+    message: 'Route Not Found'
   })
 }

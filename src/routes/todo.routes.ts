@@ -5,7 +5,7 @@ import { create, getAll, getOne, remove, update } from '../controllers/todo.cont
 
 const router: Router = express.Router()
 
-router.route('/').get(validate, asyncWrapper(getAll))
+router.route('/').get(asyncWrapper(getAll))
 router.route('/:id').get(validate, asyncWrapper(getOne))
 router.route('/').post(validate, asyncWrapper(create))
 router.route('/:id').patch(validate, asyncWrapper(update))
