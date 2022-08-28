@@ -23,9 +23,7 @@ export const getOne = async (req: Request, res: Response): Promise<Response> => 
     })
   }
 
-  const activity = await getOrSetCache(`activity-groups/${id}`, async () => {
-    return await prisma.activity.findUnique({ where: { id } })
-  })
+  const activity = await prisma.activity.findUnique({ where: { id } })
 
   if (activity === null) {
     return res.status(404).json({
