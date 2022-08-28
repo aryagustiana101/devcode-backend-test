@@ -5,15 +5,14 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
   const activityGroupId = Number(req.query.activity_group_id)
 
   if (!isNaN(activityGroupId)) {
-    const activity = await prisma.activity.findUnique({
-      where: { id: activityGroupId },
-      include: { todoList: true }
+    const todoList = await prisma.todo.findMany({
+      where: { activity_group_id: activityGroupId }
     })
 
     return res.status(200).json({
       status: 'Success',
       message: 'Success',
-      data: activity?.todoList ?? []
+      data: todoList ?? []
     })
   }
 
@@ -26,6 +25,14 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
+
+  if (id === undefined || isNaN(id)) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'Id is required',
+      data: {}
+    })
+  }
 
   const todo = await prisma.todo.findUnique({ where: { id } })
 
@@ -48,6 +55,22 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
   const { title, priority } = req.body
   const activityGroupId = Number(req.body.activity_group_id)
   const isActive = true
+
+  if (activityGroupId === undefined || isNaN(activityGroupId)) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'activity_group_id cannot be null',
+      data: {}
+    })
+  }
+
+  if (title === undefined) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'title cannot be null',
+      data: {}
+    })
+  }
 
   const activity = await prisma.activity.findUnique({
     where: { id: Number(activityGroupId) }
@@ -110,6 +133,14 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
+
+  if (id === undefined || isNaN(id)) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'Id is required',
+      data: {}
+    })
+  }
 
   const todo = await prisma.todo.findUnique({ where: { id } })
 

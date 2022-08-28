@@ -12,6 +12,14 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
+  if (id === undefined || isNaN(id)) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'Id is required',
+      data: {}
+    })
+  }
+
   const activity = await prisma.activity.findUnique({ where: { id } })
 
   if (activity === null) {
@@ -32,6 +40,14 @@ export const getOne = async (req: Request, res: Response): Promise<Response> => 
 export const create = async (req: Request, res: Response): Promise<Response> => {
   const { title, email } = req.body
 
+  if (title === undefined) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'title cannot be null',
+      data: {}
+    })
+  }
+
   const activity = await prisma.activity.create({
     data: { title, email }
   })
@@ -46,6 +62,22 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
 export const update = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
   const { title, email } = req.body
+
+  if (id === undefined || isNaN(id)) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'Id is required',
+      data: {}
+    })
+  }
+
+  if (title === undefined) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'title cannot be null',
+      data: {}
+    })
+  }
 
   const activity = await prisma.activity.findUnique({ where: { id } })
 
@@ -71,6 +103,14 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
+
+  if (id === undefined || isNaN(id)) {
+    return res.status(400).json({
+      status: 'Bad Request',
+      message: 'Id is required',
+      data: {}
+    })
+  }
 
   const activity = await prisma.activity.findUnique({ where: { id } })
 
