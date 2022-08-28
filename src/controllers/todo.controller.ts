@@ -5,7 +5,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
   const activityGroupId = Number(req.query.activity_group_id)
 
   if (!isNaN(activityGroupId)) {
-    const activity = await prisma.activity.findFirst({
+    const activity = await prisma.activity.findUnique({
       where: { id: activityGroupId },
       include: { todoList: true }
     })
@@ -27,7 +27,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
-  const todo = await prisma.todo.findFirst({ where: { id } })
+  const todo = await prisma.todo.findUnique({ where: { id } })
 
   if (todo === null) {
     return res.status(404).json({
@@ -49,7 +49,7 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
   const activityGroupId = Number(req.body.activity_group_id)
   const isActive = true
 
-  const activity = await prisma.activity.findFirst({
+  const activity = await prisma.activity.findUnique({
     where: { id: Number(activityGroupId) }
   })
 
@@ -82,7 +82,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
   const { title, priority } = req.body
   const isActive = Boolean(req.body.is_active === 'true' ?? true)
 
-  const todo = await prisma.todo.findFirst({ where: { id } })
+  const todo = await prisma.todo.findUnique({ where: { id } })
 
   if (todo === null) {
     return res.status(404).json({
@@ -111,7 +111,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
-  const todo = await prisma.todo.findFirst({ where: { id } })
+  const todo = await prisma.todo.findUnique({ where: { id } })
 
   if (todo === null) {
     return res.status(404).json({

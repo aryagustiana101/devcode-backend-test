@@ -12,7 +12,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
 export const getOne = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
-  const activity = await prisma.activity.findFirst({ where: { id } })
+  const activity = await prisma.activity.findUnique({ where: { id } })
 
   if (activity === null) {
     return res.status(404).json({
@@ -47,7 +47,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
   const id = Number(req.params.id)
   const { title, email } = req.body
 
-  const activity = await prisma.activity.findFirst({ where: { id } })
+  const activity = await prisma.activity.findUnique({ where: { id } })
 
   if (activity === null) {
     return res.status(404).json({
@@ -72,7 +72,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
   const id = Number(req.params.id)
 
-  const activity = await prisma.activity.findFirst({ where: { id } })
+  const activity = await prisma.activity.findUnique({ where: { id } })
 
   if (activity === null) {
     return res.status(404).json({

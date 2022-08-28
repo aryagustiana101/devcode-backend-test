@@ -11,7 +11,7 @@ services:
    ports:
     - '3306:3306'
   app:
-   image: aryagustiana101/devcodebetest:1.0
+   image: aryagustiana101/devcodebetest:1.1
    environment:
     MYSQL_HOST: db
     MYSQL_PORT: 3306
